@@ -1,0 +1,83 @@
+openapi: 3.0.0
+
+info:
+  title: Авторы API
+  version: 1.0.0
+  description: API для получения информации о книгах и авторах издательства Миф
+
+servers:
+  - url: https://www.mann-ivanov-ferber.ru
+    description: Основной сервер
+
+paths:
+  /books:
+    get:
+      summary: Получить список всех книг
+      description: Возвращает массив с информацией о книгах
+      responses:
+        '200':
+          description: Успешный ответ со списком книг
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+
+  /glavnoe-v-mirovoi-istorii:
+    get:
+      summary: Получить информацию о книге "Главное в мировой истории"
+      description: Возвращает детали книги "Главное в мировой истории"
+      responses:
+        '200':
+          description: Успешный ответ с данными книги
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+
+  /filatov-georgiy:
+    get:
+      summary: Получить информацию об авторе Георгии Филатове
+      description: Возвращает данные об авторе Георгии Филатове
+      responses:
+        '200':
+          description: Успешный ответ с данными автора
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: Уникальный идентификатор книги
+        title:
+          type: string
+          example: "Главное в мировой истории"
+          description: Название книги
+        author:
+          type: string
+          example: "Георгий Филатов"
+          description: Автор книги
+
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: Уникальный идентификатор автора
+        name:
+          type: string
+          example: "Георгий Филатов"
+          description: Имя автора
+        biography:
+          type: string
+          example: "Известный российский историк и писатель."
+          description: Краткая биография автора
